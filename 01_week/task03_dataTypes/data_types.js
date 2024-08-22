@@ -1,12 +1,12 @@
-let age = 30;
-let Name = 'Basilisk';
-let isStudent = false;
-let hobbies = ['Tennis', 'Trampoline', 'future guessing']; //Declaration and Assignment of the variables
-              // string array is seperated by commas
+const age = 30;
+const Name = 'Basilisk';
+const isStudent = true;
+const hobbies = ['Tennis', 'Trampoline', 'future guessing']; //Declaration and Assignment of the variables
+// string array is seperated by commas
 
-let info = {
-    nameOfSchool: 'Hogwarts',    //Creating an Object that is changeable because you might want to add another info or you want to change the grade. 
-    grade: 5
+const info = {
+    nameOfSchool: 'Hogwarts',    //Creating an Object trequires curly brackets
+    grade: 13
 }
 // I used https://www.geeksforgeeks.org/creating-objects-in-javascript-4-different-ways/#using-object-literals to help me out with that.
 /* info object is declared like a variable, because it contains variables. Curly brackets are showing where the dictionary starts and ends, so it will be read and the variables are initiated */
@@ -16,6 +16,8 @@ console.log(Name);
 console.log(isStudent);
 console.log(hobbies);
 console.log(info);
+
+console.log(typeof age, typeof Name, typeof isStudent, typeof hobbies, typeof info);
 
 
 
