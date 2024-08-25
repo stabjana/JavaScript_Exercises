@@ -5,7 +5,7 @@ Refine the getFullName function so that it returns the person's full name by uti
 function getFullName(firstName, lastName) {
     console.log(firstName, lastName);
 
-    return `${firstName} ${lastName}`;
+    return `${firstName} ${lastName}`;  //warum siehe aufgabe 08
 }
 
 // Sample usage - do not modify

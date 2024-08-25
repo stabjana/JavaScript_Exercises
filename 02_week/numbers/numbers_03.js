@@ -10,5 +10,24 @@
 - Use the typeof operator to check the data type of each new variable and print the result using console.log().
 */
 
-const num1 = floating point value
-const num2 =
+const num1 = 5.5;
+const num2 = 2.2;
+
+let roundedNum1 = Math.round(num1);
+let roundedNum2 = Math.round(num2);
+
+//let roundedNum1 = num1.toFixed(0);    toFixed macht einen String aus der Zahl! What? Why?
+//let roundedNum2 = num2.toFixed(0);
+
+let sqrtNum1 = Math.sqrt(roundedNum1);
+let maxNum = Math.max(roundedNum1, roundedNum2);
+
+console.log(roundedNum1);
+console.log(roundedNum2);
+console.log(sqrtNum1);
+console.log(maxNum);
+
+console.log(typeof roundedNum1);
+console.log(typeof roundedNum2);
+console.log(typeof sqrtNum1);
+console.log(typeof maxNum);

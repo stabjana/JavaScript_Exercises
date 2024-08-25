@@ -3,7 +3,7 @@ Refine the capitalize function to ensure it capitalizes the first letter of the 
  */
 
 function capitalize(word) {
-    return word.charAt(0).toUpperCase();
+    return word.charAt(0).toUpperCase() + word.slice(1); //man returnt den ersten Buchstaben, der mit charAT (index) ausgewählt wird, .toUpperCase und addiert den restlichen string mit slice dazu (minus den ersten Character)
 }
 
 // Sample usage - do not modify
