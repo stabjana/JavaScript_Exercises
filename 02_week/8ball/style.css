@@ -1,0 +1,29 @@
+body {
+    background-color: lightseagreen;
+    color: black;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+}
+
+header {
+    background-color: bisque;
+    color:black;
+    background-size: cover;
+    background-position: center;
+}
+
+footer {
+    background-color: black;
+    color: white;
+    width: calc(100%-50px);
+    margin: 25px;
+    text-align: center;
+    font-family: 'Courier New', Courier, monospace;
+    padding: 16px;
+} 
+submit_button {
+    
+}
+
+p {
+
+}
