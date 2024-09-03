@@ -1,3 +1,9 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
 body {
     background-color: lightseagreen;
     color: black;
@@ -7,8 +13,12 @@ body {
 header {
     background-color: bisque;
     color:black;
-    background-size: cover;
-    background-position: center;
+    width: calc(100%-50px);
+    height: 200px;
+    margin: 25px;
+    padding: 10px;
+    padding-top: 90px;
+    text-align: center;
 }
 
 footer {
@@ -17,13 +27,18 @@ footer {
     width: calc(100%-50px);
     margin: 25px;
     text-align: center;
-    font-family: 'Courier New', Courier, monospace;
     padding: 16px;
 } 
 submit_button {
+    background-color: black;
+    color: white;
+    
     
 }
 
-p {
-
+div {
+    vertical-align: middle;
+    width: calc(100%-50px);
+    display: inline-block;
+    margin-left: 40%;
 }

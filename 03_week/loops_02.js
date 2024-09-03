@@ -7,7 +7,7 @@ function numberPattern() {
     for (let i = 2; i < 100; i += 2) {
         answer += `${i}, ${100 - i}, `
     }
-    console.log(answer.slice(0, -2));
+    console.log(answer.slice(0, -2)); // endet mit Komma + leerzeichen und das macht das dann weg
 }
 numberPattern();
 
