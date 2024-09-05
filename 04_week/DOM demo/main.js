@@ -37,6 +37,9 @@ function myFunction2() {
     console.log(headline.textContent);
     headline.textContent = 'what I just did'
     button.textContent = 'FIX IT!'
+    button.style.color = 'red'
+    headline.style.fontSize = '80px'
+    headline.style.backgroundColor = 'orange'
 }
 
 button.addEventListener('click', myFunction2) // needs a const declaration
