@@ -1,8 +1,3 @@
-// 1 Dropdown Menü auf auswahl if auswahl 1, 2, 3 (den inneren Text extahieren)
-// 2 Toppings switch case 1 2 3 - auf true false
-// 3 extras switch case 1 2 - auf true false
-// function calculate price - show in page h3 total price span tag & oben im price banner (class)
-// function is triggered by every step
 
 const pancakeBase = document.querySelector('#type'); // später variable überschreiben je nach auswahl // option is attribute of type.
 const checkbox = document.querySelectorAll('input');
@@ -15,7 +10,7 @@ priceFunction(); // i put that because it should invoke automatically by not cha
 function customizeBase() {
 
     totalPrice += parseInt(pancakeBase.value);// convert string to a number
-    // console.log(totalPrice);
+    // console.log(totalPrice); Das dropdown hat options und selectedIndex (sagt welcher selected ist, und davon kann man den text nehmen) // loop war nicht nötig
 }
 
 function checkBoxCheck() {
@@ -31,6 +26,8 @@ function priceDisplay() {
 
     output[0].textContent = '$' + totalPrice;
     output[1].textContent = '$' + totalPrice;
+    // output[2].textContent = '$' + totalPrice;
+
 }
 
 function priceFunction() {
@@ -38,7 +35,7 @@ function priceFunction() {
     customizeBase();
     checkBoxCheck();
     priceDisplay();
-    console.log(totalPrice);
+    //  console.log(totalPrice);
 }
 
 pancakeBase.addEventListener('change', priceFunction);
@@ -49,4 +46,38 @@ for (let index = 0; index < checkbox.length; index++) {
     element.addEventListener('change', priceFunction);
 }
 
+const text = document.getElementById('content');
 
+function textUpdate() {
+    text.textContent = 'Hello ' + document.querySelector('#name').value;
+
+}
+// you can use the attribute selector also after the brackets: const pancakeBase = document.querySelector('#type').value;   CRAZY! :)
+
+const orderName = document.getElementById('orderName');
+const orderBase = document.getElementById('orderBase');
+const orderTopp = document.getElementById('orderTopp');
+const orderExtra = document.getElementById('orderExtra');
+const orderDelivery = document.getElementById('orderDelivery');
+const orderPrice = document.getElementById('orderPrice');
+
+function displayOrder() {
+    orderName.textContent = 'Your Name: ' + document.querySelector('#name').value;
+    orderBase.textContent = 'Pancake type: ' + pancakeBase.options[pancakeBase.selectedIndex].text.split(' ')[0];
+    let toppings = 'Selected Toppings: ';
+    for (let index = 0; index < 4; index++) { // achtung bei Änderungen (oder neuen Event listener für die radio buttons machen)
+        const element = checkbox[index];
+
+        if (element.checked === true) {
+            toppings += element.name + ', '; // eigentlich text benutzen der auf dem Screen ist
+        }
+    }
+    orderTopp.textContent = toppings.slice(0, -2);
+}
+
+/*
+Customer Name
+Selected Pancake Type, Toppings, and Extras
+Chosen Delivery Method
+Total Price (including any delivery charges)
+*/

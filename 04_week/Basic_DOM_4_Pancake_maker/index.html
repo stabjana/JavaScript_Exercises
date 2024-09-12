@@ -25,21 +25,47 @@
       </div>
       <div class="customization-section">
         <p>Select your toppings ($1 each):</p>
-        <input type="checkbox" id="nuts" value="1" />Nuts<br />
-        <input type="checkbox" id="bananas" value="1" />Bananas<br />
-        <input type="checkbox" id="syrup" value="1" />Syrup<br />
+        <input type="checkbox" id="nuts" value="1" name="Nuts" />Nuts<br />
+        <input type="checkbox" id="bananas" value="1" name="Bananas" />Bananas<br />
+        <input type="checkbox" id="syrup" value="1" Name="Syrup" />Syrup<br />
       </div>
       <div class="customization-section">
 
         <p>Add extras:</p>
-        <input type="checkbox" id="whippedCream" value="2" />Whipped Cream -
+        <input type="checkbox" id="whippedCream" value="2" name="WhippedCream" />Whipped Cream -
         $2<br />
-        <input type="checkbox" id="iceCream" value="3" />Ice Cream - $3<br />
+        <input type="checkbox" id="iceCream" value="3" name="Ice Cream" />Ice Cream - $3<br />
       </div>
+
+      <label for="name">Enter name</label> <br>
+      <input name="name" type="text" id="name" />
+      <button onclick="textUpdate()">Submit Name</button>
+
+      <div id="content"> </div>
+
+
+      <div class="deliveryOption">
+        <p>Choose an option to get your delicious pancakes:</p>
+      </div>
+      <input type="radio" id="eatin" value="0" name="delivery" checked />Eat In $0 <br>
+      <input type="radio" id="pickup" value="0" name="delivery" />Pick Up $0 <br>
+      <input type="radio" id="delivery" value="5" name="delivery" />Delivery $5 <br>
+
       <div class="price-display">
         <h3>Total Price: <span id="totalPrice">$5</span></h3>
       </div>
+      <div>
+        <button onclick="displayOrder()">See order</button>
+      </div>
+      <div id="orderName"> </div>
+      <div id="orderBase"> </div>
+      <div id="orderTopp"> </div>
+      <div id="orderExtra"> </div>
+      <div id="orderDelivery"> </div>
+      <div id="orderPrice"> </div>
+
     </div>
+
   </div>
   <script src="script.js"></script>
 </body>

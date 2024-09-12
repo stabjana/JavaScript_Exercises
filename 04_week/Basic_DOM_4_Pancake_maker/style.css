@@ -12,9 +12,9 @@ body {
 .container {
   display: flex;
   align-items: flex-start;
+
   justify-content: center;
   width: 80%;
-}
 
 .image-container {
   position: relative;
@@ -35,17 +35,21 @@ body {
 
 .price-banner {
   position: absolute;
-  top: 20px;
-  left: 50%;
+  top: 10%;
+  left: 70%;
   transform: translateX(-50%);
   background-color: #d17b49;
   color: white;
   border-radius: 50%;
   width: 100px;
-  height: 100px;
+  height: 100px; /* % von höhe und breite eintragen, irgendwie rausfinden */
   display: flex;
   justify-content: center;
   align-items: center;
   font-size: 20px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+}
+
+.customization-section {
+  font-size: 1em;
 }
