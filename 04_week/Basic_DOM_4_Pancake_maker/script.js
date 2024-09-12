@@ -65,19 +65,39 @@ function displayOrder() {
     orderName.textContent = 'Your Name: ' + document.querySelector('#name').value;
     orderBase.textContent = 'Pancake type: ' + pancakeBase.options[pancakeBase.selectedIndex].text.split(' ')[0];
     let toppings = 'Selected Toppings: ';
-    for (let index = 0; index < 4; index++) { // achtung bei Änderungen (oder neuen Event listener für die radio buttons machen)
+    for (let index = 0; index < 3; index++) { // achtung bei Änderungen (oder neuen Event listener für die radio buttons machen)
         const element = checkbox[index];
 
         if (element.checked === true) {
             toppings += element.name + ', '; // eigentlich text benutzen der auf dem Screen ist
         }
     }
-    orderTopp.textContent = toppings.slice(0, -2);
-}
+    let extras = 'Selected Extras: ';
+    for (let index = 3; index < 5; index++) { // achtung bei Änderungen (oder neuen Event listener für die radio buttons machen)
+        const element = checkbox[index];
 
-/*
-Customer Name
-Selected Pancake Type, Toppings, and Extras
-Chosen Delivery Method
-Total Price (including any delivery charges)
-*/
+        if (element.checked === true) {
+            extras += element.name + ', '; // eigentlich text benutzen der auf dem Screen ist
+        }
+    }
+    let delivery = 'Selected delivery method: ';
+    for (let index = 6; index < 9; index++) {
+        const element = checkbox[index];
+
+        if (element.checked === true) {
+            if (element.id == "eatin") {
+                delivery += "Eat in";
+            }
+            if (element.id == "pickup") {
+                delivery += "Pickup";
+            }
+            if (element.id == "delivery") {
+                delivery += "Delivery";
+            }
+        }
+    }
+    orderTopp.textContent = toppings.slice(0, -2);
+    orderExtra.textContent = extras.slice(0, -2);
+    orderDelivery.textContent = delivery;
+    orderPrice.textContent = `Total Price: $${totalPrice}`;
+}
