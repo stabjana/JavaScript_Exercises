@@ -15,6 +15,7 @@ body {
 
   justify-content: center;
   width: 80%;
+}
 
 .image-container {
   position: relative;
@@ -42,7 +43,8 @@ body {
   color: white;
   border-radius: 50%;
   width: 100px;
-  height: 100px; /* % von höhe und breite eintragen, irgendwie rausfinden */
+  height: 100px;
+  /* % von höhe und breite eintragen, irgendwie rausfinden */
   display: flex;
   justify-content: center;
   align-items: center;

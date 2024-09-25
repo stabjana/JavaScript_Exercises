@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cars</title>
+    <link rel="stylesheet" href="style.css" />
+</head>
+
+<body>
+    <div class="form">
+        <form id="inputForm">
+            <label for="licensePl">Licence Plate</label>
+            <input type="text" name="licensePl" id="licensePl"><br>
+
+            <label for="maker">Maker</label>
+            <input type="text" name="maker" id="maker"><br>
+
+            <label for="model">Model</label>
+            <input type="text" name="model" id="model"><br>
+
+            <label for="currOwner">Current Owner</label>
+            <input type="text" name="currOwner" id="currOwner"><br>
+
+            <label for="price">Price</label>
+            <input type="text" name="price" id="price"><br>
+
+            <label for="color">Color</label>
+            <input type="text" name="color" id="color">
+
+        </form>
+        <button type="button" onclick="main()">Submit Information</button>
+        <button type="button" onclick="resetForm()">Reset</button>
+    </div><br>
+
+    <table id="carsTable">
+        <tr>
+            <th>License</th>
+            <th>Maker</th>
+            <th>model</th>
+            <th>price</th>
+            <th>color</th>
+        </tr>
+
+
+    </table>
+    </div>
+
+
+
+    <script src=" cars.js"></script>
+</body>
+
+</html>

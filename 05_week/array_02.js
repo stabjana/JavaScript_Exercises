@@ -88,23 +88,10 @@ Expected outcomes:
 "Letters in 'Couch': C, o, u, c, h"
 */
 // Write your code here
-const toLetters = furniture.toString();
-let makeLett = '';
-console.log(toLetters);
-makeLetters();
-console.log(makeLett);
+furniture.forEach((element) => spellWord(element));
 
-function makeLetters() {
-    while (toLetters) {
-        let i = 0;
-        if (toLetters > 0) {
-            makeLett += toLetters + ', ';
-        }
-        if (toLetters[i] = ' '); {
-            i++;
-        }
-        i++;
-    }
+function spellWord(word) {
+    console.log(`Letters in ${word}: ${word.split('').join(', ')}`);
 }
 
 // Exerice 7: Filter positive temperatures
@@ -114,6 +101,8 @@ Write the function getPositiveTemperatures such that it returns an array contain
 Expected outcome: [3, 22, 5, 18]
 */
 // Write your code here
+console.log(temperatures.filter((item) => item > 0));
+
 
 // Exerice 8: Filter Odd Years
 /*
@@ -124,6 +113,11 @@ getOddYears([2000, 2015, 2018, 2020]) -> [2015]
 */
 
 // Write your code here
+function getOddYears(years) {
+    console.log(years.filter((item) => item % 2 == 1));
+}
+getOddYears([2019, 2020, 2021]);
+getOddYears([2000, 2015, 2018, 2020]);
 
 // Sample usage - Uncomment to test your function
 // console.log(getOddYears([2019, 2020, 2021])); // [2019, 2021]
