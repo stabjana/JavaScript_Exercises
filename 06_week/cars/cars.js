@@ -68,18 +68,32 @@ function getInput(event) {
             throw new Error('Please enter the current owner');
         }
         if (carInput.color == '') {
-            throw new Error('Please enter the color');
+            throw new Error('Please enter the color'); // wie error constructor, der dann fehler weiter schmeißt
         }
 
     }
-    catch (error) {
-        console.error('An error occured', error.message);
+    catch (error) { // fängt den error und hat dann den mit allen attributen
+        displayMessage(error.message, 'error');
         return 0;
     }
 
     allCars.push(carInput);
+    localStorage.setItem('allCars', JSON.stringify(allCars)); // only strings allowed in local storage -> JSON.stringify - setItem saves it into storage
+    displayMessage('Car added successfully', 'success');
     return 1;
 }
+
+const loadCarsFromLocalStorage = () => {
+    const storedCars = localStorage.getItem('allCars'); // restore items from the local storage
+    if (storedCars) {
+        const parsedCars = JSON.parse(storedCars); // to turn it into an object again
+        parsedCars.forEach(carData => {
+            allCars.push(new Car(carData.licencePlate, carData.maker, carData.model, carData.currentOwner, carData.price, carData.discountedPrice, carData.color, carData.year)); /* JSON.parse(storedCars): Wandelt den JSON-String in ein Array von Objekten um. Diese Objekte sind aber keine Car-Objekte, sondern nur normale, einfache JavaScript-Objekte mit Eigenschaften wie license, maker, model usw.
+            Du brauchst aber Instanzen der Car-Klasse, um auf Methoden und Eigenschaften der Klasse Car zugreifen zu können. */
+        });
+        displayCars();
+    }
+};
 
 function displayCars() {
     let table = document.querySelector('table');
@@ -147,7 +161,7 @@ function getInputPlate() {
             }
         }
     } catch (error) {
-        console.error('An error occured', error.message);
+        displayMessage(error.message, 'error');
         return 0;
     }
     const filtered = allCars.filter((car) => car.licencePlate == searchPlate);
@@ -170,3 +184,18 @@ function getInputPlate() {
     }
 }
 
+function displayMessage(message, type = "success") {
+    // shows message when called (message = declared as argument of function; type = optional argument with a default value "sucess" for CSS auswahl)
+    const messageElement = document.querySelector("#message"); // shows in html document
+    messageElement.textContent = message; // takes the value of current message
+    messageElement.className = type; // for CSS: type wird definiert
+    setTimeout(() => {
+        messageElement.textContent = ""; // after 3sec messageEl takes Value empty String and empty class and turns on the default CSS value "hidden" 
+        messageElement.className = "";
+    }, 3000);
+}; // put it in every message to call that displayMessage function - to show the message on screen
+
+// displayMessage('Car added successfully', 'success');
+// displayMessage(error.message, 'error');
+
+window.addEventListener('load', loadCarsFromLocalStorage); // why not only just call the function?
