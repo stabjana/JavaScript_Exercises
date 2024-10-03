@@ -139,7 +139,12 @@ function getInputPlate() {
     /* searchCarForm.reset(); */
 
     if (filtered.length == 1) {
-        document.querySelector('#showSearch').textContent = `Maker: ${filtered[0].maker}, Model: ${filtered[0].model}, Owner: ${filtered[0].currentOwner}`;
+        if (carInput.year <= 2014) {
+            document.querySelector('#showSearch').textContent = `Maker: ${filtered[0].maker}, Model: ${filtered[0].model}, Owner: ${filtered[0].currentOwner}, Price: ${filtered[0].price}, Discounted Price: ${filtered[0].discountedPrice}`;
+        }
+        else {
+            document.querySelector('#showSearch').textContent = `Maker: ${filtered[0].maker}, Model: ${filtered[0].model}, Owner: ${filtered[0].currentOwner}, Price: ${filtered[0].price}, No Discount`;
+        }
     }
     else {
         document.querySelector('#showSearch').textContent = 'No matching car found.';
