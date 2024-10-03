@@ -53,6 +53,11 @@ function getInput(event) {
         if (carInput.licencePlate == '') {
             throw new Error('Please enter License Plate');
         }
+        for (let i = 0; i < carInput.licencePlate.length; i++) { // iterates through li Pl and defines only num and letters are allowed
+            if (!((carInput.licencePlate[i] >= 'a' && carInput.licencePlate[i] <= 'z') || (carInput.licencePlate[i] >= 'A' && carInput.licencePlate[i] <= 'Z') || (carInput.licencePlate[i] >= '0' && carInput.licencePlate[i] <= '9'))) {
+                throw new Error('Please enter only numbers and letters');
+            }
+        }
         if (carInput.maker == '') {
             throw new Error('Please enter the Maker');
         }
@@ -130,16 +135,30 @@ Dann muss der query selector ohne .value auskommen, der wird nicht erkannt. */
 
 function getInputPlate() {
     /*   e.preventDefault(); */
+    let searchPlate = document.querySelector('#searchLicense').value;
 
-    const filtered = allCars.filter((car) => car.licencePlate == document.querySelector('#searchLicense').value);
+    try {
+        if (searchPlate == '') {
+            throw new Error('Please enter a License Plate');
+        }
+        for (let i = 0; i < searchPlate.length; i++) { // iterates through li Pl and defines only num and letters are allowed
+            if (!((searchPlate[i] >= 'a' && searchPlate[i] <= 'z') || (searchPlate[i] >= 'A' && searchPlate[i] <= 'Z') || (searchPlate[i] >= '0' && searchPlate[i] <= '9'))) {
+                throw new Error('Please enter only numbers and letters');
+            }
+        }
+    } catch (error) {
+        console.error('An error occured', error.message);
+        return 0;
+    }
+    const filtered = allCars.filter((car) => car.licencePlate == searchPlate);
 
     console.log(filtered); // leer type is object.
 
     document.querySelector('#searchLicense').value = '';
     /* searchCarForm.reset(); */
 
-    if (filtered.length == 1) {
-        if (carInput.year <= 2014) {
+    if (filtered.length == 1) { // wenn er eins gefunden hat(kann ja auch 0 sein)
+        if (filtered[0].year <= 2014) {
             document.querySelector('#showSearch').textContent = `Maker: ${filtered[0].maker}, Model: ${filtered[0].model}, Owner: ${filtered[0].currentOwner}, Price: ${filtered[0].price}, Discounted Price: ${filtered[0].discountedPrice}`;
         }
         else {
@@ -150,29 +169,4 @@ function getInputPlate() {
         document.querySelector('#showSearch').textContent = 'No matching car found.';
     }
 }
-
-
-
-/* 
-
-9. Discount based on car year:
-
-   - Implement a feature that calculates a discount based on the car's age. Cars that are older than 10 years should receive a 15% discount on their price.
-   - Update the car display table to show the original price and the discounted price (if applicable).
-   - Make sure to handle cases where the discount does not apply (i.e., cars that are less than 10 years old) and display the regular price.
-
-
-Search for a Car by License Plate:
-
-- Include error handling to manage cases where the search input is invalid or the license plate cannot be found.
-
-function {
-    try {
-     return years.filter((year) => year % 2 !== 0);
-    } catch (error) {
-      console.error('An error occurred:', error);
-  }
-}
-*/
-
 
