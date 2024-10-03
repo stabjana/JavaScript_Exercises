@@ -9,25 +9,40 @@
 </head>
 
 <body>
+
+    <div id="search">
+        <label for="searchLicense">Please enter Licence Plate</label>
+
+        <input type="text" name="searchLicense" id="searchLicense">
+
+        <button id="searchButton" class="searchButton" type="submit" onclick="getInputPlate()">Search</button>
+    </div>
+
+    <p id="showSearch">
+    </p>
+
     <div class="form">
         <form id="inputForm">
             <label for="licensePl">Licence Plate</label>
-            <input type="text" name="licensePl" id="licensePl"><br>
+            <input type="text" name="licensePl" id="licensePl" required><br>
 
             <label for="maker">Maker</label>
-            <input type="text" name="maker" id="maker"><br>
+            <input type="text" name="maker" id="maker" required><br>
 
             <label for="model">Model</label>
-            <input type="text" name="model" id="model"><br>
+            <input type="text" name="model" id="model" required><br>
 
             <label for="currOwner">Current Owner</label>
-            <input type="text" name="currOwner" id="currOwner"><br>
+            <input type="text" name="currOwner" id="currOwner" required><br>
 
             <label for="price">Price</label>
-            <input type="text" name="price" id="price"><br>
+            <input type="number" name="price" id="price" required><br>
 
             <label for="color">Color</label>
-            <input type="text" name="color" id="color">
+            <input type="text" name="color" id="color" required><br>
+
+            <label for="year">Year</label>
+            <input type="number" name="year" id="year" required>
 
         </form>
         <button type="button" onclick="main()">Submit Information</button>
@@ -38,9 +53,12 @@
         <tr>
             <th>License</th>
             <th>Maker</th>
-            <th>model</th>
-            <th>price</th>
-            <th>color</th>
+            <th>Model</th>
+            <th>Owner</th>
+            <th>Price</th>
+            <th>Discounted Price</th>
+            <th>Color</th>
+            <th>Year</th>
         </tr>
 
 
