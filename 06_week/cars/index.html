@@ -10,65 +10,88 @@
 
 <body>
 
+    <h1>Car Database</h1>
+
     <div id="search">
-        <h1>Car Database</h1>
+        <h2>Search Car</h2>
 
-        <label for="searchLicense">Please enter Licence Plate</label>
+        <div class="divForColumn">
 
-        <input type="text" name="searchLicense" id="searchLicense">
+            <div class="searchForm">
+                <label for="searchLicense">Enter Licence Plate here:</label>
 
-        <button id="searchButton" class="searchButton" type="submit" onclick="getInputPlate()">Search</button>
+                <input type="text" name="searchLicense" id="searchLicense">
+
+                <button id="searchButton" class="searchButton" type="submit" onclick="getInputPlate()">Search</button>
+            </div>
+
+
+            <p id="showSearch">
+            </p>
+        </div>
+
     </div>
-
-    <p id="showSearch">
-    </p>
 
     <div id="message"></div>
+    <main>
+        <section class="input">
+            <div class="form">
+                <h2>Add a Car</h2>
+                <form id="inputForm">
+                    <div>
+                        <label for="licensePl">Licence Plate</label>
+                        <input type="text" name="licensePl" id="licensePl" required>
+                    </div><br>
+                    <div>
+                        <label for="maker">Maker</label>
+                        <input type="text" name="maker" id="maker" required>
+                    </div><br>
+                    <div>
+                        <label for="model">Model</label>
+                        <input type="text" name="model" id="model" required>
+                    </div><br>
+                    <div>
+                        <label for="currOwner">Current Owner</label>
+                        <input type="text" name="currOwner" id="currOwner" required>
+                    </div><br>
+                    <div>
+                        <label for="price">Price</label>
+                        <input type="number" name="price" id="price" required>
+                    </div><br>
+                    <div>
+                        <label for="color">Color</label>
+                        <input type="text" name="color" id="color" required>
+                    </div><br>
 
-    <div class="form">
-        <form id="inputForm">
-            <label for="licensePl">Licence Plate</label>
-            <input type="text" name="licensePl" id="licensePl" required><br>
+                    <div>
+                        <label for="year">Year</label>
+                        <input type="number" name="year" id="year" required>
+                    </div>
+                </form>
+                <button type="button" onclick="main()">Submit Information</button>
+                <button type="button" onclick="resetForm()">Reset</button>
+            </div>
+        </section>
 
-            <label for="maker">Maker</label>
-            <input type="text" name="maker" id="maker" required><br>
+        <section class="showTable">
+            <table id="carsTable">
 
-            <label for="model">Model</label>
-            <input type="text" name="model" id="model" required><br>
+                <tr>
+                    <th>License</th>
+                    <th>Maker</th>
+                    <th>Model</th>
+                    <th>Owner</th>
+                    <th>Price</th>
+                    <th>Discounted Price</th>
+                    <th>Color</th>
+                    <th>Year</th>
+                    <th></th>
+                </tr>
 
-            <label for="currOwner">Current Owner</label>
-            <input type="text" name="currOwner" id="currOwner" required><br>
-
-            <label for="price">Price</label>
-            <input type="number" name="price" id="price" required><br>
-
-            <label for="color">Color</label>
-            <input type="text" name="color" id="color" required><br>
-
-            <label for="year">Year</label>
-            <input type="number" name="year" id="year" required>
-
-        </form>
-        <button type="button" onclick="main()">Submit Information</button>
-        <button type="button" onclick="resetForm()">Reset</button>
-    </div><br>
-
-    <table id="carsTable">
-        <tr>
-            <th>License</th>
-            <th>Maker</th>
-            <th>Model</th>
-            <th>Owner</th>
-            <th>Price</th>
-            <th>Discounted Price</th>
-            <th>Color</th>
-            <th>Year</th>
-        </tr>
-
-
-    </table>
-    </div>
-
+            </table>
+            </div>
+        </section>
+    </main>
 
 
     <script src=" cars.js"></script>

@@ -96,7 +96,7 @@ const loadCarsFromLocalStorage = () => {
 };
 
 function displayCars() {
-    let table = document.querySelector('table');
+    let table = document.querySelector('#carsTable');
     /* add a row to the table and display the content in the correct cells */
 
     let row = table.insertRow();
@@ -123,6 +123,27 @@ function displayCars() {
 
     let cell8 = row.insertCell();
     cell8.textContent = allCars[allCars.length - 1].year;
+
+    let cell9 = row.insertCell(); // hängt einen button an die Zeile an
+    let button = document.createElement("BUTTON");
+    let t = document.createTextNode("Delete"); //Creates a new Text node. This method can be used to escape (erlaubt auch Sonderzeichen, die nicht HTML interpretiert werden) HTML characters. 
+    button.setAttribute("class", "deleteBtn")
+    button.appendChild(t); // fügt den Textknoten (Text: "Delete") zum Button-Element dazu
+    cell9.appendChild(button);
+
+    let index = table.rows.length;
+    button.addEventListener("click", () => deleteCar(index)); //triggert delete car funktion
+}
+
+function deleteCar(index) { // index = table.rows.length
+    let table = document.querySelector('#carsTable');
+    table.deleteRow(index - 1); // löscht das Auto aus der Tabelle
+
+    allCars.splice(index - 1, 1); // löscht das auto aus dem Cars array
+
+    localStorage.setItem('allCars', JSON.stringify(allCars));
+
+    displayMessage('Car deleted successfully', 'success');
 }
 
 function resetForm() {
@@ -184,7 +205,7 @@ function getInputPlate() {
     }
 }
 
-function displayMessage(message, type = "success") {
+function displayMessage(message, type = "success") { // looked from Margits code
     // shows message when called (message = declared as argument of function; type = optional argument with a default value "sucess" for CSS auswahl)
     const messageElement = document.querySelector("#message"); // shows in html document
     messageElement.textContent = message; // takes the value of current message
@@ -199,3 +220,11 @@ function displayMessage(message, type = "success") {
 // displayMessage(error.message, 'error');
 
 window.addEventListener('load', loadCarsFromLocalStorage); // why not only just call the function?
+
+let input = document.getElementById('#submitInfo');
+
+input.addEventListener("keypress", function (event) {
+    if (event.key === "Enter") {
+        event.preventDefault();
+    }
+});
