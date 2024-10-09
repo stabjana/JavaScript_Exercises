@@ -1,0 +1,18 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: Arial, Helvetica, sans-serif;
+    color: #333;
+}
+
+.card {
+    padding: 50px;
+    margin: 10px;
+    background-color: #014916;
+    color: white;
+
+}
