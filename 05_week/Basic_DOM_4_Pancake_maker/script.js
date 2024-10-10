@@ -28,23 +28,22 @@ function priceDisplay() {
     output[0].textContent = '$' + totalPrice;
     output[1].textContent = '$' + totalPrice;
     // output[2].textContent = '$' + totalPrice;
-
 }
 
 function priceFunction() {
-    totalPrice = 0;
+    totalPrice = 0; // damit nicht einfach nur addiert wird, sonst würde bei jedem Klick der Preis erhöht, auch wenn man haken wegnimmt
     customizeBase();
     checkBoxCheck();
     priceDisplay();
     //  console.log(totalPrice);
 }
 
-pancakeBase.addEventListener('change', priceFunction);
+pancakeBase.addEventListener('change', priceFunction); // event listener für das dropdown menü - löst preis fkt aus weil sich Preis ändern muss.
 
 for (let index = 0; index < checkbox.length; index++) {
     const element = checkbox[index];
 
-    element.addEventListener('change', priceFunction);
+    element.addEventListener('change', priceFunction); // für jede Checkbox ein Event li, damit sich der Preis jedes mal ändern kann - deswegen ändert sich der Preis auch wieder zurück wenn man einen haken wegmacht
 }
 
 const text = document.getElementById('content');
@@ -63,7 +62,7 @@ const orderPrice = document.getElementById('orderPrice');
 
 function displayOrder() {
     orderName.textContent = 'Your Name: ' + document.querySelector('#name').value;
-    orderBase.textContent = 'Pancake type: ' + pancakeBase.options[pancakeBase.selectedIndex].text.split(' ')[0]; // to get rid of the $ part
+    orderBase.textContent = 'Pancake type: ' + pancakeBase.options[pancakeBase.selectedIndex].text.split(' ')[0]; // to get rid of the $ part - alle optionen anschauen, welche ist die ausgewählte und dann den text von der benutzen. selectedIndex ist als attribut verfügbar
     let toppings = 'Selected Toppings: ';
     let toppingArray = [];
     for (let index = 0; index < 3; index++) { // achtung bei Änderungen (oder neuen Event listener für die radio buttons machen)
@@ -71,7 +70,7 @@ function displayOrder() {
 
         if (element.checked === true) {
             toppings += element.name + ', '; // eigentlich text benutzen der auf dem Screen ist
-            toppingArray.push(element.name);
+            toppingArray.push(element.name); // für array
         }
     }
     let extras = 'Selected Extras: ';
@@ -81,7 +80,7 @@ function displayOrder() {
 
         if (element.checked === true) {
             extras += element.name + ', '; // eigentlich text benutzen der auf dem Screen ist
-            extrasArray.push(element.name);
+            extrasArray.push(element.name); // für array
         }
     }
     let delivery = 'Selected delivery method: ';
@@ -92,15 +91,15 @@ function displayOrder() {
         if (element.checked === true) {
             if (element.id == "eatin") {
                 delivery += "Eat in";
-                deliveryOpt = "Eat in";
+                deliveryOpt = "Eat in"; // für array
             }
             if (element.id == "pickup") {
                 delivery += "Pickup";
-                deliveryOpt = "Pickup";
+                deliveryOpt = "Pickup"; // für array
             }
             if (element.id == "delivery") {
                 delivery += "Delivery";
-                deliveryOpt = "Delivery";
+                deliveryOpt = "Delivery"; // für array
             }
         }
     }
@@ -109,34 +108,33 @@ function displayOrder() {
     orderDelivery.textContent = delivery;
     orderPrice.textContent = `Total Price: $${totalPrice}`;
 
+    // save the order to the array
+
+    const orderDetails = [];
+    // inside the jeweilige function:
+    // orderDetails.push += orderName, pancakeBase orderTopp, orderExtra, orderDelivery, totalPrice;
+    class Pancake {
+        constructor(name, base, toppings, extras, delivery, price) {
+            this.name = name;
+            this.base = base;
+            this.toppings = toppings;
+            this.extras = extras;
+            this.delivery = delivery;
+            this.price = price;
+        }
+    }
+
     let pancakes = new Pancake(document.querySelector('#name').value, pancakeBase.options[pancakeBase.selectedIndex].text.split(' ')[0], toppingArray, extrasArray, deliveryOpt, totalPrice);
 
-    let nameListe = false;
+    let nameListe = false; // alte Bestellungen updaten
     for (let i = 0; i < orderDetails.length; i++) {
         if (pancakes.name == orderDetails[i].name) {
             orderDetails[i] = pancakes;
-            nameListe = true;
+            nameListe = true; // name in Liste gefunden? wenn ja, nicht hinten angehängt 
         }
     }
-    if (nameListe == false) {
+    if (nameListe == false) { // wenn false, dann wird der pancake hinten angehängt
         orderDetails.push(pancakes);
-
     }
     console.log(orderDetails);
-}
-
-// save the order to the array
-
-const orderDetails = [];
-// inside the jeweilige function:
-// orderDetails.push += orderName, pancakeBase orderTopp, orderExtra, orderDelivery, totalPrice;
-class Pancake {
-    constructor(name, base, toppings, extras, delivery, price) {
-        this.name = name;
-        this.base = base;
-        this.toppings = toppings;
-        this.extras = extras;
-        this.delivery = delivery;
-        this.price = price;
-    }
 }
