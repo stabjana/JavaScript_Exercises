@@ -16,8 +16,8 @@ class Car {
     }
 }
 
-function getInput(event) {
-    /* event.preventDefault(); */
+function getInput() {
+
     let discountedPrice = 'No discount';
 
     let carInput = new Car(document.querySelector('#licensePl').value,
@@ -29,7 +29,6 @@ function getInput(event) {
         document.querySelector('#color').value,
         document.querySelector('#year').value
     );
-    console.log(carInput);
 
     if (carInput.year <= 2014) {
         carInput.discountedPrice = Math.round(carInput.price * 0.85 * 100) / 100; // it is older and gets discount 
@@ -38,11 +37,7 @@ function getInput(event) {
 
     try { // doesn't get new Input values and just adds the first sotred variables inside the array and table
 
-        console.log(carInput.price);
-
         if (carInput.price < 0 || isNaN(carInput.price)) {
-
-            console.log(carInput.price);
 
             throw new Error('Please enter the correct price'); // hat es immer eingetragen, auch wenn nummer negativ war. Weil die main function beide funktionen durchlaufen lässt und nicht den Eintrag in die Tabelle stoppt - fixed mit if in main function und retunr different values
         }
@@ -57,6 +52,11 @@ function getInput(event) {
             if (!((carInput.licencePlate[i] >= 'a' && carInput.licencePlate[i] <= 'z') || (carInput.licencePlate[i] >= 'A' && carInput.licencePlate[i] <= 'Z') || (carInput.licencePlate[i] >= '0' && carInput.licencePlate[i] <= '9'))) {
                 throw new Error('Please enter only numbers and letters');
             }
+        }
+
+        const index = allCars.findIndex((car) => car.licencePlate == carInput.licencePlate);
+        if (index > -1) { // wenn findIndex erfolgreich, dann index wenn nicht dann -1
+            throw new Error('License Plate already in Database');
         }
         if (carInput.maker == '') {
             throw new Error('Please enter the Maker');
@@ -79,8 +79,10 @@ function getInput(event) {
 
     allCars.push(carInput);
     localStorage.setItem('allCars', JSON.stringify(allCars)); // only strings allowed in local storage -> JSON.stringify - setItem saves it into storage
+
+    displayCar(carInput);
     displayMessage('Car added successfully', 'success');
-    return 1;
+    resetForm();
 }
 
 const loadCarsFromLocalStorage = () => {
@@ -91,60 +93,79 @@ const loadCarsFromLocalStorage = () => {
             allCars.push(new Car(carData.licencePlate, carData.maker, carData.model, carData.currentOwner, carData.price, carData.discountedPrice, carData.color, carData.year)); /* JSON.parse(storedCars): Wandelt den JSON-String in ein Array von Objekten um. Diese Objekte sind aber keine Car-Objekte, sondern nur normale, einfache JavaScript-Objekte mit Eigenschaften wie license, maker, model usw.
             Du brauchst aber Instanzen der Car-Klasse, um auf Methoden und Eigenschaften der Klasse Car zugreifen zu können. */
         });
-        displayCars();
+
+        allCars.forEach(car => displayCar(car));
     }
 };
 
-function displayCars() {
+function displayCar(car) { // how to prevent the reload of the table or show the rest of the array there
+
     let table = document.querySelector('#carsTable');
     /* add a row to the table and display the content in the correct cells */
 
     let row = table.insertRow();
     let cell1 = row.insertCell();
-    cell1.textContent = allCars[allCars.length - 1].licencePlate;
+    cell1.textContent = car.licencePlate;
 
     let cell2 = row.insertCell();
-    cell2.textContent = allCars[allCars.length - 1].maker;
+    cell2.textContent = car.maker;
 
     let cell3 = row.insertCell();
-    cell3.textContent = allCars[allCars.length - 1].model;
+    cell3.textContent = car.model;
 
     let cell4 = row.insertCell();
-    cell4.textContent = allCars[allCars.length - 1].currentOwner;
+    cell4.textContent = car.currentOwner;
 
     let cell5 = row.insertCell();
-    cell5.textContent = allCars[allCars.length - 1].price;
+    cell5.textContent = car.price;
 
     let cell6 = row.insertCell();
-    cell6.textContent = allCars[allCars.length - 1].discountedPrice;
+    cell6.textContent = car.discountedPrice;
 
     let cell7 = row.insertCell();
-    cell7.textContent = allCars[allCars.length - 1].color;
+    cell7.textContent = car.color;
 
     let cell8 = row.insertCell();
-    cell8.textContent = allCars[allCars.length - 1].year;
+    cell8.textContent = car.year;
 
     let cell9 = row.insertCell(); // hängt einen button an die Zeile an
-    let button = document.createElement("BUTTON");
-    let t = document.createTextNode("Delete"); //Creates a new Text node. This method can be used to escape (erlaubt auch Sonderzeichen, die nicht HTML interpretiert werden) HTML characters. 
-    button.setAttribute("class", "deleteBtn")
+    let button = document.createElement('BUTTON');
+    let t = document.createTextNode('Delete'); //Creates a new Text node. This method can be used to escape (erlaubt auch Sonderzeichen, die nicht HTML interpretiert werden) HTML characters. 
+    button.setAttribute('class', 'deleteBtn')
     button.appendChild(t); // fügt den Textknoten (Text: "Delete") zum Button-Element dazu
     cell9.appendChild(button);
 
-    let index = table.rows.length;
-    button.addEventListener("click", () => deleteCar(index)); //triggert delete car funktion
+    const actualLicensePl = car.licencePlate; // index beim löschen war immer falsch und war immer nur das letzte Element
+    button.addEventListener('click', () => deleteCar(actualLicensePl)); //triggert delete car funktion
+
 }
 
-function deleteCar(index) { // index = table.rows.length
-    let table = document.querySelector('#carsTable');
-    table.deleteRow(index - 1); // löscht das Auto aus der Tabelle
 
-    allCars.splice(index - 1, 1); // löscht das auto aus dem Cars array
+function deleteCar(licencePlate) { // index = table.rows.length                 // array: löscht den letzten Eintrag ?? check! 
+    const table = document.querySelector('#carsTable');
+    const index = allCars.findIndex((car) => car.licencePlate == licencePlate); // Table: letzte row wird nicht gelöscht
 
-    localStorage.setItem('allCars', JSON.stringify(allCars));
+    table.deleteRow(index + 1); // löscht das Auto aus der Tabelle
+    allCars.splice(index, 1); // +2 ist korrekt! sonst löscht es andere Dinge // edit: +2 war korrekt, jetzt ist +1 gut.
+
+
+    /* allCars.splice(index + 1, 1); */ // löscht das auto aus dem Cars array
+    localStorage.setItem('allCars', JSON.stringify(allCars)); // overwrites the arr in local storage
 
     displayMessage('Car deleted successfully', 'success');
-}
+    console.log(allCars);
+
+    /* 
+    alternative: 
+    const deleteCar = (index) => {
+    cars.splice(index, 1);
+    localStorage.setItem('cars', JSON.stringify(cars));
+    displayTable();
+    displayMessage("Car deleted successfully!");
+};
+    */
+}// table shows only the last after refreshing
+// rather refresh the whole table than delete one thing.
 
 function resetForm() {
     document.querySelector('#licensePl').value = '';
@@ -156,21 +177,9 @@ function resetForm() {
     document.querySelector('#year').value = '';
 }
 
-function main() {
-    if (getInput()) { // if get input ist 0 = ist nicht da, wenn 1 = ist da
-        displayCars();
-    }
-}
-/* 
-LOOP und dann mit .name zuweisen für jede Cell
-
-function call per on click funtioniert nur einer; function call muss anders erfolgen. vielleicht main schreiben. 
-Dann muss der query selector ohne .value auskommen, der wird nicht erkannt. */
-
-
 function getInputPlate() {
-    /*   e.preventDefault(); */
-    let searchPlate = document.querySelector('#searchLicense').value;
+
+    const searchPlate = document.querySelector('#searchLicense').value;
 
     try {
         if (searchPlate == '') {
@@ -185,24 +194,37 @@ function getInputPlate() {
         displayMessage(error.message, 'error');
         return 0;
     }
-    const filtered = allCars.filter((car) => car.licencePlate == searchPlate);
 
-    console.log(filtered); // leer type is object.
-
-    document.querySelector('#searchLicense').value = '';
-    /* searchCarForm.reset(); */
-
-    if (filtered.length == 1) { // wenn er eins gefunden hat(kann ja auch 0 sein)
-        if (filtered[0].year <= 2014) {
-            document.querySelector('#showSearch').textContent = `Maker: ${filtered[0].maker}, Model: ${filtered[0].model}, Owner: ${filtered[0].currentOwner}, Price: ${filtered[0].price}, Discounted Price: ${filtered[0].discountedPrice}`;
+    const index = allCars.findIndex((car) => car.licencePlate == searchPlate);
+    console.log(`Index from getInputfunction ${index}`);
+    if (index >= 0) { // wenn er eins gefunden hat(kann ja auch 0 sein)
+        if (allCars[index].year <= 2014) { // schreibt es hin, altes oder neues
+            document.querySelector('#showSearch').textContent = `Maker: ${allCars[index].maker}`
+            document.querySelector('#showModel').textContent = `Model: ${allCars[index].model}`
+            document.querySelector('#showOwner').textContent = `Owner: ${allCars[index].currentOwner}`
+            document.querySelector('#showPrice').textContent = `Price: ${allCars[index].price}€`
+            document.querySelector('#showDiscPrice').textContent = `Discounted Price: ${allCars[index].discountedPrice}€`;
         }
         else {
-            document.querySelector('#showSearch').textContent = `Maker: ${filtered[0].maker}, Model: ${filtered[0].model}, Owner: ${filtered[0].currentOwner}, Price: ${filtered[0].price}, No Discount`;
+            document.querySelector('#showSearch').textContent = `Maker: ${allCars[index].maker}`
+            document.querySelector('#showModel').textContent = `Model: ${allCars[index].model}`
+            document.querySelector('#showOwner').textContent = `Owner: ${allCars[index].currentOwner}`
+            document.querySelector('#showPrice').textContent = `Price: ${allCars[index].price}€`
+            document.querySelector('#showDiscPrice').textContent = 'No Discount';
         }
     }
     else {
         document.querySelector('#showSearch').textContent = 'No matching car found.';
+        document.querySelector('#showModel').textContent = '';
+        document.querySelector('#showOwner').textContent = '';
+        document.querySelector('#showPrice').textContent = '';
+        document.querySelector('#showDiscPrice').textContent = '';
     }
+
+    document.querySelector('#searchLicense').value = '';
+
+    const overlay = document.querySelector('#showBox');
+    overlay.classList.add('visible'); // adds the box for showing the text
 }
 
 function displayMessage(message, type = "success") { // looked from Margits code
@@ -220,11 +242,11 @@ function displayMessage(message, type = "success") { // looked from Margits code
 // displayMessage(error.message, 'error');
 
 window.addEventListener('load', loadCarsFromLocalStorage); // why not only just call the function?
-
+/* 
 let input = document.getElementById('#submitInfo');
 
 input.addEventListener("keypress", function (event) {
     if (event.key === "Enter") {
         event.preventDefault();
     }
-});
+}); */
