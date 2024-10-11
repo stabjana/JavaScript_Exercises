@@ -22,12 +22,18 @@ header {
     background-color: var(--secondcolor);
     color: var(--highlight2);
     width: fit-content;
-    padding: 2rem 6rem;
+    padding: 2rem 4rem;
     margin: auto;
     margin-top: 5rem;
     margin-bottom: 5rem;
     border-radius: 10px;
-    box-shadow: 0px 0px 5px 5px var(--higlightcolor1);
+    box-shadow: 0px 0px 5px 7px var(--higlightcolor1);
+    text-align: center;
+    transition: transform 0.5s, 2s 0.1s;
+}
+
+header:hover {
+    transform: rotate(360deg);
 }
 
 #card-container {
@@ -40,24 +46,54 @@ header {
     max-width: fit-content;
 }
 
+.card img {
+    width: 55%;
+    object-fit: contain;
+}
+
 .card {
-    padding: 40px;
+    padding: 20px 0;
     margin: auto;
     background-color: var(--secondcolor);
     color: var(--highlight2);
-    width: 100%;
     border-radius: 10px;
     box-shadow: 0px 0px 5px 5px var(--higlightcolor1);
     text-align: center;
-    font-size: larger;
     line-height: 2rem;
+    height: auto;
+
+    transition: transform 0.5s, 0.5s 0s;
 }
 
-/* .card:hover{
-    transition
-} */
+.card:hover {
+    transform: scale(1.1);
+}
+
+@media (max-width:1325px) {
+    header {
+        font-size: 0.9rem;
+        width: fit-content;
+    }
+}
+
+@media (max-width:952px) {
+    header {
+        width: fit-content;
+        padding: 2rem 4rem;
+    }
+}
 
 @media (max-width:800px) {
+
+    header {
+
+        margin: auto;
+        margin-top: 5rem;
+        margin-bottom: 5rem;
+        border-radius: 10px;
+        box-shadow: 0px 0px 5px 5px var(--higlightcolor1);
+        font-size: 0.6rem;
+    }
 
     #card-container {
         display: grid;
@@ -66,4 +102,29 @@ header {
         margin: auto;
         margin-bottom: 1rem;
     }
+
+}
+
+@media (max-width:375px) {
+
+    header {
+
+        width: 60%;
+        padding: 1rem 2rem;
+        margin: auto;
+        margin-top: 3rem;
+        margin-bottom: 3rem;
+        border-radius: 10px;
+        box-shadow: 0px 0px 5px 5px var(--higlightcolor1);
+        font-size: 0.5rem;
+    }
+
+    #card-container {
+        display: grid;
+        grid-template-columns: repeat(1, 1fr);
+        max-width: fit-content;
+        margin: auto;
+        margin-bottom: 0.5rem;
+    }
+
 }
