@@ -3,16 +3,35 @@
 
 <head>
   <meta charset="UTF-8" />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Aleo:ital,wght@0,100..900;1,100..900&display=swap"
+    rel="stylesheet">
   <title>Pancake Maker</title>
   <link rel="stylesheet" href="style.css" />
+  <link rel="icon" href="pancake_pics/Favicon_pancakes.svg" type="image/x-icon">
 </head>
 
 <body>
-  <div class="container">
+
+  <header>
+
+    <img src="pancake_pics/steffis-pancake-hut-logo-zip-file/png/logo-no-background.png"
+      alt="Logo: Steffis pancake hut">
+
+    <h1>What kind of pancake do you like?</h1>
+    <button onclick="scrollButton()" class="orderNowButton">Order Now online</button>
+  </header>
+
+  <div id="container" class="container">
     <div class="image-container">
-      <img src="pancake.jpeg" alt="Delicious pancakes" />
-      <div class="price-banner"><span id="totalPrice">$5</span></div>
+      <img src="pancake_pics/lovely-family-enjoying-new-year-party.jpg" alt="People enjoying food" />
+
+      <div id="glowy" class="price-banner"><span id="totalPrice">$5</span>
+      </div>
     </div>
+
+
     <div class="form-container">
       <h2>Customize Your Vegan Pancake</h2>
       <div class="customization-section">
@@ -23,14 +42,15 @@
           <option value="7">Blueberry - $7</option>
         </select>
       </div>
+
       <div class="customization-section">
         <p>Select your toppings ($1 each):</p>
         <input type="checkbox" id="nuts" value="1" name="Nuts" />Nuts<br />
         <input type="checkbox" id="bananas" value="1" name="Bananas" />Bananas<br />
         <input type="checkbox" id="syrup" value="1" Name="Syrup" />Syrup<br />
       </div>
-      <div class="customization-section">
 
+      <div class="customization-section">
         <p>Add extras:</p>
         <input type="checkbox" id="whippedCream" value="2" name="WhippedCream" />Whipped Cream -
         $2<br />
@@ -39,7 +59,7 @@
 
       <label for="name">Enter name</label> <br>
       <input name="name" type="text" id="name" />
-      <button onclick="textUpdate()">Submit Name</button>
+      <button class="submit" onclick="textUpdate()">Submit Name</button>
 
       <div id="content"> </div>
 
@@ -55,15 +75,19 @@
         <h3>Total Price: <span id="totalPrice">$5</span></h3>
       </div>
       <div>
-        <button onclick="displayOrder()">See order</button>
+        <button class="detailsButton" onclick="displayOrder()">See order</button>
       </div>
-      <div id="orderName"> </div>
-      <div id="orderBase"> </div>
-      <div id="orderTopp"> </div>
-      <div id="orderExtra"> </div>
-      <div id="orderDelivery"> </div>
-      <div id="orderPrice"> </div>
-
+      <div class="overlay">
+        <div class="modal">
+          <div id="orderName"> </div>
+          <div id="orderBase"> </div>
+          <div id="orderTopp"> </div>
+          <div id="orderExtra"> </div>
+          <div id="orderDelivery"> </div>
+          <div id="orderPrice"> </div>
+          <button class="close">Close</button>
+        </div>
+      </div>
     </div>
 
   </div>

@@ -28,7 +28,17 @@ function priceDisplay() {
     output[0].textContent = '$' + totalPrice;
     output[1].textContent = '$' + totalPrice;
     // output[2].textContent = '$' + totalPrice;
+    textGlowEffect()
 }
+
+function textGlowEffect() {
+    const element = document.querySelector('#totalPrice');
+
+    element.className = 'textGlow';
+    setTimeout(() => {
+        element.className = '';
+    }, 1000);
+};
 
 function priceFunction() {
     totalPrice = 0; // damit nicht einfach nur addiert wird, sonst würde bei jedem Klick der Preis erhöht, auch wenn man haken wegnimmt
@@ -138,3 +148,20 @@ function displayOrder() {
     }
     console.log(orderDetails);
 }
+
+
+function scrollButton() {
+    const element = document.getElementById('container').offsetTop;
+    window.scrollTo({ top: element, behavior: 'smooth' });
+}
+
+const modalButton = document.querySelector('.detailsButton');
+const closeButton = document.querySelector('.close');
+const overlay = document.querySelector('.overlay');
+
+const toggleModal = () => {
+    overlay.classList.toggle('visible');
+}
+
+modalButton.addEventListener('click', toggleModal);
+closeButton.addEventListener('click', toggleModal)
